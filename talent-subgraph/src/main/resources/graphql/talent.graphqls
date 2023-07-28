@@ -1,0 +1,19 @@
+type Talent {
+    id: ID!
+    director: String!
+    actors: [String!]!
+}
+
+type Query {
+    allDetails: [Talent!]!
+    talentDetails(movieInput: MovieInput!): Talent!
+}
+
+input MovieInput {
+    id: ID
+}
+
+type Movie @key(fields: "id") @extends {
+    id: ID! @external
+    talent: Talent!
+}

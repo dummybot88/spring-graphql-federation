@@ -1,0 +1,9 @@
+type Query {
+    fetchAllMovies: [Movie!]!
+}
+
+type Movie @key(fields: "id"){
+    id: ID!
+    title: String
+    releaseYear: Int
+}

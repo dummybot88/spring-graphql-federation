@@ -1,0 +1,1 @@
+# query{fetchAllMovies{title releaseYear talent{director actors}}}

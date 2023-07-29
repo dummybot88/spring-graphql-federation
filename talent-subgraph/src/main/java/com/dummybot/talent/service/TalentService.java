@@ -16,6 +16,10 @@ public class TalentService {
     return talentRepository.findByMovieId(movie.getId());
   }
   
+  public Talent fetchTalentById(Long id){
+    return talentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("No talent team found"));
+  }
+  
   public Iterable<Talent> fetchTalentDetails(){
     return talentRepository.findAll();
   }

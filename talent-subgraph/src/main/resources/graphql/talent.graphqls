@@ -1,15 +1,39 @@
+extend schema
+@link(
+    url: "https://specs.apollo.dev/federation/v2.3",
+    import: [
+        "@composeDirective",
+        "@extends",
+        "@external",
+        "@inaccessible",
+        "@interfaceObject",
+        "@key",
+        "@override",
+        "@provides",
+        "@requires",
+        "@shareable",
+        "@tag"
+    ]
+)
+
 type Talent {
     id: ID!
     director: String!
     actors: [String!]!
+    movie: Movie
 }
 
 type Query {
     allDetails: [Talent!]!
     talentDetails(movieInput: MovieInput!): Talent!
+    talentById(talentInput: TalentInput!): Talent!
 }
 
 input MovieInput {
+    id: ID
+}
+
+input TalentInput {
     id: ID
 }
 

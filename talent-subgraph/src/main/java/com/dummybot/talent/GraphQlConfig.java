@@ -1,8 +1,13 @@
 package com.dummybot.talent;
 
+import static com.dummybot.talent.service.TalentReferenceResolver.OBJECT_TYPE_NAME_FIELD;
+import static com.dummybot.talent.service.TalentReferenceResolver.TYPE_NAME_MOVIE;
+import static com.dummybot.talent.service.TalentReferenceResolver.TYPE_NAME_TALENT;
+
 import com.apollographql.federation.graphqljava.Federation;
 import com.apollographql.federation.graphqljava._Entity;
 import com.dummybot.talent.repo.Movie;
+import com.dummybot.talent.service.TalentReferenceResolver;
 import graphql.schema.DataFetcher;
 import java.util.List;
 import java.util.Map;
@@ -15,26 +20,36 @@ import org.springframework.graphql.execution.ClassNameTypeResolver;
 @Configuration
 public class GraphQlConfig {
   @Bean
-  public GraphQlSourceBuilderCustomizer federationTransform() {
-    DataFetcher<?> entityDataFetcher = env -> {
-      List<Map<String, Object>> representations = env.getArgument(_Entity.argumentName);
-      System.out.println("ArgumentName:" + representations);
-      return representations.stream()
-          .map(representation -> {
-            if ("Movie".equals(representation.get("__typename"))) {
-              return new Movie(Long.parseLong((String) representation.get("id")));
-            }
-            return null;
-          })
-          .collect(Collectors.toList());
-    };
-
+  public GraphQlSourceBuilderCustomizer federationTransform(TalentReferenceResolver talentReferenceResolver) {
     return builder ->
         builder.schemaFactory((registry, wiring)->
             Federation.transform(registry, wiring)
-                .fetchEntities(entityDataFetcher)
+                .fetchEntities(getDataFetcher(talentReferenceResolver))
                 .resolveEntityType(new ClassNameTypeResolver())
                 .build()
         );
+  }
+
+  private static DataFetcher<?> getDataFetcher(
+      TalentReferenceResolver talentReferenceResolver) {
+    return env -> {
+      List<Map<String, Object>> representations = env.getArgument(_Entity.argumentName);
+      return representations.stream()
+          .map(representation -> {
+            final String typeName = String.valueOf(representation.get(OBJECT_TYPE_NAME_FIELD));
+            return getTypeObject(talentReferenceResolver, representation, typeName);
+          })
+          .collect(Collectors.toList());
+    };
+  }
+
+  private static Object getTypeObject(TalentReferenceResolver talentReferenceResolver,
+      Map<String, Object> representation, String typeName) {
+    if (TYPE_NAME_MOVIE.equals(typeName)) {
+      return Movie.resolveReference(representation);
+    }
+    return 
+        (TYPE_NAME_TALENT.equals(typeName)) ?
+            talentReferenceResolver.resolveReference(representation) : null;
   }
 }

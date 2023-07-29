@@ -1,6 +1,7 @@
 package com.dummybot.talent.resolver;
 
 import com.dummybot.talent.input.MovieInput;
+import com.dummybot.talent.input.TalentInput;
 import com.dummybot.talent.repo.Movie;
 import com.dummybot.talent.repo.Talent;
 import com.dummybot.talent.service.TalentService;
@@ -30,5 +31,14 @@ public class TalentResolver {
   public Iterable<Talent> allDetails(){
     return talentService.fetchTalentDetails();
   }
-
+  
+  @QueryMapping
+  public Talent talentById(@Argument TalentInput talentInput){
+    return talentService.fetchTalentById(talentInput.getId());
+  }
+  
+  @SchemaMapping
+  public Movie movie(Talent talent){
+    return new Movie(talent.getMovieId());
+  }
 }

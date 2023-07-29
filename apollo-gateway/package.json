@@ -1,0 +1,17 @@
+{
+  "name": "bff-federation-gateway",
+  "main": "gateway.js",
+  "scripts": {
+    "start-gateway": "nodemon gateway.js",
+    "test": "echo \"Tests implementation is under construction\" && exit 1"
+  },
+  "dependencies": {
+    "@apollo/gateway": "^2.4.0",
+    "@apollo/rover":"^0.13.0",
+    "@apollo/server": "^4.5.0",
+    "graphql": "^16.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}

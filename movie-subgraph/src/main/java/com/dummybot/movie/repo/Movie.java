@@ -18,5 +18,6 @@ public class Movie {
   private String title;
   
   private int releaseYear;
-
+  
+  private Long talentId;
 }

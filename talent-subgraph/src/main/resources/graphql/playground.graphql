@@ -1,1 +1,8 @@
-# query{fetchAllMovies{title releaseYear talent{director actors}}}
+#query{allDetails {
+#    director
+#    actors
+#    movie{
+#        title
+#        releaseYear
+#    }
+#}}

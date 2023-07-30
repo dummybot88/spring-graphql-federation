@@ -89,6 +89,7 @@ type Talent @join__type(graph: TALENT) {
   director: String!
   id: ID!
   movie: Movie
+  producer: String!
 }
 
 input TalentInput @join__type(graph: TALENT) {

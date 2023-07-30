@@ -43,6 +43,6 @@ export const startApolloServer = async ({ port, gateway }) => {
   );
 
   // Modified server startup
-  await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
+  await new Promise((resolve) => httpServer.listen({ port }, resolve));
   console.log(`🚀 Server ready at http://localhost:4000/gateway`);
 };

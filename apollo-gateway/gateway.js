@@ -1,17 +1,6 @@
-import { ApolloGateway, IntrospectAndCompose } from "@apollo/gateway";
+import { ApolloGateway } from "@apollo/gateway";
 import fs from "fs";
 import { startApolloServer } from "./server.js";
-
-// use for Dev
-/*const gateway = new ApolloGateway({
-  supergraphSdl: new IntrospectAndCompose({
-    subgraphs: [
-      { name: "movie", url: "http://localhost:8081/graphql" },
-      { name: "talent", url: "http://localhost:8082/graphql" },
-      // List of federation-capable GraphQL endpoints...
-    ],
-  }),
-});*/
 
 const gateway = new ApolloGateway({
   supergraphSdl: fs.readFileSync("./supergraph.graphql", "utf8").toString(),

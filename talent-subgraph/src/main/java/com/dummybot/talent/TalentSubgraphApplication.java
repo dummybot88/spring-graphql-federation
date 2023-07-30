@@ -35,8 +35,8 @@ public class TalentSubgraphApplication {
 		actorsForMovieTwo.add("Cillian Murphy");
 		actorsForMovieTwo.add("Emily Blunt");
 		actorsForMovieTwo.add("Robert D Jr.");
-		return List.of(new Talent("Martin Scorsese", actorsForMovieOne, 11L),
-				new Talent("Christopher Nolan", actorsForMovieTwo, 12L));
+		return List.of(new Talent("Martin Scorsese", "Martin Scorsese", actorsForMovieOne, 11L),
+				new Talent("Christopher Nolan","Christopher Nolan", actorsForMovieTwo, 12L));
 	}
 
 }

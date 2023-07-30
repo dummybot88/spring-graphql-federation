@@ -22,13 +22,16 @@ public class Talent {
   
   private String director;
   
+  private String producer;
+  
   @ElementCollection(targetClass = String.class)
   private List<String> actors;
   
   private Long movieId;
 
-  public Talent(String director, List<String> actors, Long movieId) {
+  public Talent(String director, String producer, List<String> actors, Long movieId) {
     this.director = director;
+    this.producer = producer;
     this.actors = actors;
     this.movieId = movieId;
   }

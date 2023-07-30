@@ -1,0 +1,8 @@
+federation_version: =2.3.2
+subgraphs:
+    movie:
+      schema:
+        subgraph_url: http://localhost:8081/graphql
+    talent:
+      schema:
+        subgraph_url: http://localhost:8082/graphql
